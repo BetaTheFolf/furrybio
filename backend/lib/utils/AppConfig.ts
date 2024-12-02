@@ -1,7 +1,8 @@
 import * as env from "env-var";
+import { RemovalPolicy } from "aws-cdk-lib";
 import { NodeEnv } from "../constants/environment";
 
-export class AppConfig {
+class AppConfig {
   private readonly NODE_ENV: NodeEnv;
 
   constructor() {
@@ -21,6 +22,14 @@ export class AppConfig {
 
   isProduction() {
     return this.NODE_ENV === NodeEnv.PROD;
+  }
+
+  getRemovalPolicy(): RemovalPolicy {
+    if (this.isDevelopment()) {
+      return RemovalPolicy.DESTROY;
+    }
+
+    return RemovalPolicy.RETAIN;
   }
 }
 

@@ -3,8 +3,7 @@ import { Construct } from "constructs";
 import { DomainConstruct } from "./constructs/DomainConstruct";
 import { CognitoConstruct } from "./constructs/CognitoConstruct";
 import { DatabaseConstruct } from "./constructs/DatabaseConstruct";
-import { APIConstruct } from "./constructs/APIConstruct";
-import { FrontendConstruct } from "./constructs/FrontendConstruct";
+import { AppConstruct } from "./constructs/AppConstruct";
 import { MediaConstruct } from "./constructs/MediaConstruct";
 
 export class BackendStack extends cdk.Stack {
@@ -15,7 +14,16 @@ export class BackendStack extends cdk.Stack {
     const cognito = new CognitoConstruct(this, "cognito");
     const database = new DatabaseConstruct(this, "database");
     const media = new MediaConstruct(this, "media");
-    const api = new APIConstruct(this, "api");
-    const frontend = new FrontendConstruct(this, "frontend");
+    const app = new AppConstruct(this, "app");
+
+    new cdk.CfnOutput(this, "cognito-client-id", {
+      value: cognito.cognitoClientId,
+    });
+    new cdk.CfnOutput(this, "cognito-client-secret", {
+      value: cognito.cognitoClientSecret,
+    });
+    new cdk.CfnOutput(this, "cognito-issuer", {
+      value: cognito.cognitoIssuer,
+    });
   }
 }

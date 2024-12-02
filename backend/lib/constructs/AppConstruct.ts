@@ -1,6 +1,6 @@
 import { Construct } from "constructs";
 
-export class FrontendConstruct extends Construct {
+export class AppConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
   }
